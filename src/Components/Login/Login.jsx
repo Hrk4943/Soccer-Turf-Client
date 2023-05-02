@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
-import Video from '../../assets/Home.mp4'
+import Video from '../../assets/Video.mp4'
 import Nav from '../User/Layout/Nav'
 import axios from 'axios'
 import { userContext } from '../../Store/Context'

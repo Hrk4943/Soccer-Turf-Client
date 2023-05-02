@@ -5,7 +5,7 @@ import { toast, Toaster } from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
 import Content from './Content'
 import Banner from './Banner'
-import Video from '../../../assets/CoverVideo.mp4'
+import Video from '../../../assets/Video.mp4'
 
 
 

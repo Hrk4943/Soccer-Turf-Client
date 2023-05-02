@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import Video from '../../../assets/Home.mp4'
+import Video from '../../../assets/Video.mp4'
 import axios from 'axios'
 import { toast, Toaster } from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'

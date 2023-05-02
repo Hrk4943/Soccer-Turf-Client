@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { turfOwnerUrl } from '../../../API/API'
-import Video from '../../../assets/CoverVideo.mp4'
+import Video from '../../../assets/Video.mp4'
 import { toast,Toaster } from 'react-hot-toast'
 
 

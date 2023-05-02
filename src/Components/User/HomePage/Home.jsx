@@ -1,5 +1,5 @@
 import React from 'react'
-import Video from '../../../assets/CoverVideo.mp4'
+import Video from '../../../assets/Video.mp4'
 import Nav from '../Layout/Nav'
 import { useNavigate } from 'react-router-dom'
 

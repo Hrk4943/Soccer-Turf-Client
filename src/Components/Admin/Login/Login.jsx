@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { adminUrl } from '../../../API/API'
-import Video from '../../../assets/Home.mp4'
+import Video from '../../../assets/Video.mp4'
 import { Toaster, toast } from 'react-hot-toast'
 import axios from 'axios'
 
