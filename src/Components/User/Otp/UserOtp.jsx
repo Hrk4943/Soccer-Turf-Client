@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import axios from 'axios'
-import { userUrl } from '../../../API/API'
-
+// import axios from 'axios'
+// import { userUrl } from '../../../API/API'
+import { Axiosuser } from '../../../API/AxiosInstance'
 import Video from '../../../assets/Video.mp4'
 import { toast, Toaster } from 'react-hot-toast'
 import Nav from '../Layout/Nav'
@@ -56,7 +56,7 @@ function UserOtp() {
     const signUpAndOtpVerify = (e) => {
         e.preventDefault()
         setLoading(true)
-        axios.post(`${userUrl}signUp`, { userData, otp }).then((response) => {
+        Axiosuser.post(`signUp`, { userData, otp }).then((response) => {
             response.data.status ? Navigate('/login') : toast.error('Incorrect otp')
         }).catch(() => {
             toast.error('some unexpected errors please try after some time')

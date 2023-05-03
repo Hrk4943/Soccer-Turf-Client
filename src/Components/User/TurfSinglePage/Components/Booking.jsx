@@ -3,8 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { getTimeSlot } from "./TimeSlot";
 import Calendar from "react-calendar";
 import { useEffect, useState } from "react";
-import axios from "axios";
-import { userUrl } from "../../../../API/API";
+// import axios from "axios";
+// import { userUrl } from "../../../../API/API";
+import { Axiosuser } from '../../../../API/AxiosInstance';
 import { stripeKey } from '../../../../Helpers/StripeKey.js';
 
 const Booking = ({ ID, openingTime, closingTime, setShowCalender }) => {
@@ -18,16 +19,14 @@ const Booking = ({ ID, openingTime, closingTime, setShowCalender }) => {
     const Time = async (time) => {
         if (!token) return Navigate("/login");
         try {
-            const response = await axios.post(
-                `${userUrl}booking`,
+            const response = await Axiosuser.post(
+                `booking`,
                 { ID, date, time },
                 { headers: { authorization: token } }
             );
             if (response && response.status === 200) {
                 const stripe = await stripePromise;
-               
-                const result = await axios.get(`${userUrl}payment/${response.data._id}`);
-            
+                const result = await Axiosuser.get(`payment/${response.data._id}`);
                 if (result && result.status === 200) {
                     await stripe.redirectToCheckout({ sessionId: result.data.response });
                 }
@@ -43,13 +42,10 @@ const Booking = ({ ID, openingTime, closingTime, setShowCalender }) => {
     const slots = getTimeSlot(openingTime, closingTime, 60);
     const getSlots = async (date) => {
         try {
-            const response = await axios.get(`${userUrl}bookingslots/${date}/${ID}`)
+            const response = await Axiosuser.get(`bookingslots/${date}/${ID}`)
             if (response.status === 200) {
-                console.log(response?.data);
                 const bookedTimes = response?.data.map((x) => x.time);
-                console.log(bookedTimes,"bookedTimes");
                 setBookedTime(bookedTimes);
-                console.log(bookedTime,"booooooded")
             }
         } catch (error) {
             console.error(error)

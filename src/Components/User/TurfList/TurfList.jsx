@@ -1,7 +1,8 @@
 import TurfCard from "./TurfCard";
 import { useEffect, useState } from "react";
-import axios from "axios";
-import { userUrl } from "../../../API/API";
+import { Axiosuser } from "../../../API/AxiosInstance";
+// import axios from "axios";
+// import { userUrl } from "../../../API/API";
 
 
 const Turf = () => {
@@ -12,14 +13,11 @@ const Turf = () => {
   useEffect(() => {
     const Turfs = async () => {
       try {
-        await axios
-          .get(`${userUrl}turfs`)
-          .then((response) => {
+        await Axiosuser.get(`turfs`).then((response) => {
             response.status === 200;
             setTurfs(response.data.turfs);
             refresh ? setRefresh(false) : setRefresh(true);
-          })
-          .catch((err) => {
+          }).catch((err) => {
             err?.response?.status === 401;
           });
       } catch (err) {

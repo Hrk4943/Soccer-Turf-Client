@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react"
 import { Link, useParams } from "react-router-dom"
-import { userUrl } from "../../../../API/API"
-import axios from "axios"
+// import { userUrl } from "../../../../API/API"
+// import axios from "axios"
+import { Axiosuser } from "../../../../API/AxiosInstance"
 import Nav from "../../../User/Layout/Nav"
 import { toast, Toaster } from 'react-hot-toast'
 
@@ -14,9 +15,8 @@ const SuccessPage = () => {
 
     const updateSuccess = async () => {
         try {
-          const response = await axios.post(`${userUrl}booking-success/${id}`);
+          const response = await Axiosuser.post(`booking-success/${id}`);
           if (response?.status === 200) {
-            console.log(response.data);
             setDetails(response.data);
             toast.success("Payment Success")
           }

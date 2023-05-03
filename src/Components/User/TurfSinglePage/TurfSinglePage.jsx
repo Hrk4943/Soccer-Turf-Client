@@ -1,9 +1,10 @@
-import React from 'react'
+// import React from 'react'
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import "react-calendar/dist/Calendar.css";
-import { userUrl } from '../../../API/API';
-import axios from 'axios';
+import { Axiosuser } from "../../../API/AxiosInstance";
+// import { userUrl } from '../../../API/API';
+// import axios from 'axios';
 import "react-calendar/dist/Calendar.css";
 import Booking from "./Components/Booking";
 import ImageManage from './Components/ImageManage';
@@ -18,7 +19,7 @@ export default function TurfSinglePage() {
 
   const fetchTurf = async (ID) => {
     try {
-      await axios.get(`${userUrl}viewTurf/${ID}`).then((response) => {
+      await Axiosuser.get(`viewTurf/${ID}`).then((response) => {
         response.status === 200
         setData(response.data.turf);
 

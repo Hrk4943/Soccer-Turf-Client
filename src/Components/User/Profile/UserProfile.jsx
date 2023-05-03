@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
-
-import axios from "axios";
-import { FormValidate } from "../../../Helpers/TurfValidation.js";
+// import axios from "axios";
 import Photo from "./Photo";
 import Bookings from "./Bookings";
-import { userUrl } from "../../../API/API";
+import { Axiosuser } from "../../../API/AxiosInstance.js";
+// import { userUrl } from "../../../API/API";
 import Wallet from "./Wallet";
 
 const UserProfile = () => {
@@ -15,18 +14,11 @@ const UserProfile = () => {
   const [wallet,setWallet]=useState([])
   const [showWallet,setShowWallet]=useState(false)
 
-  // let today = new Date();
-  // let month = String(today.getMonth() + 1).padStart(2, "0");
-  // let day = String(today.getDate()).padStart(2, "0");
-  // let year = today.getFullYear();
-  // let formattedDate = month + "/" + day + "/" + year;
-  // const todayDate = new Date(formattedDate);
-
 
   const toGetUser = async (token) => {
     try {
         const headers = { authorization: token }
-      const response = await axios.get(`${userUrl}profile`, {headers});
+      const response = await Axiosuser.get(`profile`, {headers});
       if (response.status === 200) {
         setUsers(response?.data);
       }
@@ -42,7 +34,7 @@ const UserProfile = () => {
     e.preventDefault();
     try {
         const headers = { authorization: token }
-      const response = await axios.post(`${userUrl}profile`, {users},{headers});
+      const response = await Axiosuser.put(`profile`, {users},{headers});
       if (response.status === 200) {
         setEdit(false);
       }
@@ -54,7 +46,7 @@ const UserProfile = () => {
   const fetchWallet=async(token)=>{
     try {
       const headers = { authorization: token }
-      axios.get(`${userUrl}wallet`,{headers}).then((response)=>{
+      Axiosuser.get(`wallet`,{headers}).then((response)=>{
         if(response.status===200){
           setWallet(response.data)
           setShowWallet(true)

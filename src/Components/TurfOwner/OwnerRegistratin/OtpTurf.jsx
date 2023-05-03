@@ -1,8 +1,9 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import axios from 'axios'
-import { turfOwnerUrl } from '../../../API/API'
+import { AxiosTurfOwner } from '../../../API/AxiosInstance'
+// import axios from 'axios'
+// import { turfOwnerUrl } from '../../../API/API'
 import Video from '../../../assets/Video.mp4'
 import { toast,Toaster } from 'react-hot-toast'
 
@@ -53,7 +54,7 @@ export default function OtpTurf() {
         reader.readAsDataURL(image)
         reader.onloadend=()=>{
             imageData=reader.result
-            axios.post(`${turfOwnerUrl}turf-signUp`,{turfData,otp,imageData}).then((response)=>{
+            AxiosTurfOwner.post(`turf-signUp`,{turfData,otp,imageData}).then((response)=>{
                response.data.signUp ? Navigate('/login') :  toast.error('Invalid otp')
             }).catch(()=>{
                 toast.error('An Error Occured')

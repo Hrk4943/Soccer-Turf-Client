@@ -9,8 +9,8 @@ function Home() {
   return (
     <>
     <Nav/>
-    <div className="relative">
-      <video className="w-full h-auto object-cover" autoPlay muted loop>
+    <div className="relative min-h-screen -z-5">
+      <video className="absolute top-0 left-0 w-full h-full object-cover" autoPlay muted loop>
         <source src={Video} type="video/mp4" />
       </video>
       <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">

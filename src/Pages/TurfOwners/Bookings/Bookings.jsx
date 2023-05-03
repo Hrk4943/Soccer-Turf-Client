@@ -1,7 +1,9 @@
 import React from 'react'
 import { useEffect, useState } from 'react';
-import axios from 'axios';
-import { turfOwnerUrl } from '../../../API/API';
+// import axios from 'axios';
+// import { turfOwnerUrl } from '../../../API/API';
+import moment from 'moment';
+import { AxiosTurfOwner } from '../../../API/AxiosInstance';
 import Nav from '../../../Components/TurfOwner/Layout/Nav';
 
 export default function Bookings() {
@@ -22,7 +24,7 @@ export default function Bookings() {
     const fetchBookings = async (token) => {
         try {
             const headers = { authorization: token };
-            const response = await axios.get(`${turfOwnerUrl}bookings`, { headers });
+            const response = await AxiosTurfOwner.get(`bookings`, { headers });
             if (response.status === 200) {
                 setBookings(response.data);
                 const upcomingBooking = response.data.filter((booking) => {
@@ -164,7 +166,10 @@ export default function Bookings() {
                                             <p class="text-gray-900 whitespace-no-wrap">{booking?.turf?.courtName}</p>
                                         </td> */}
                                             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                                <p class="text-gray-900 whitespace-no-wrap">{new Date(booking?.bookDate).toLocaleDateString()}</p>
+                                                <p class="text-gray-900 whitespace-no-wrap">
+                                                {moment(booking?.bookDate).format('DD-MM-YYYY')}
+                                                    {/* {new Date(booking?.bookDate).toLocaleDateString()} */}
+                                                    </p>
                                             </td>
                                             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                                 <p class="text-gray-900 whitespace-no-wrap">{booking?.time}</p>
@@ -195,7 +200,11 @@ export default function Bookings() {
                                                 <p class="text-gray-900 whitespace-no-wrap">{booking?._id}</p>
                                             </td>
                                             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                                <p class="text-gray-900 whitespace-no-wrap">{new Date(booking?.bookDate).toLocaleDateString()}</p>
+                                                <p class="text-gray-900 whitespace-no-wrap">
+                                                    
+                                                {moment(booking?.bookDate).format('DD-MM-YYYY')}
+                                                {/* {new Date(booking?.bookDate).toLocaleDateString()} */}
+                                                    </p>
                                             </td>
                                             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                                 <p class="text-gray-900 whitespace-no-wrap">{booking?.time}</p>
@@ -223,14 +232,14 @@ export default function Bookings() {
                             className="btn btn-border-2 float-right mt-5"
                             onClick={() => setShowBookings(false)}
                         >
-                            Previous Bookings
+                            Upcoming Bookings
                         </button>
                     ) : (
                         <button
                             className="btn btn-border-2 float-right mt-5"
                             onClick={() => setShowBookings(true)}
                         >
-                            Current Bookings
+                           Current Bookings 
                         </button>
                     )}
                 </div>

@@ -2,9 +2,10 @@ import React, { useState, useEffect, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Video from '../../assets/Video.mp4'
 import Nav from '../User/Layout/Nav'
-import axios from 'axios'
+// import axios from 'axios'
 import { userContext } from '../../Store/Context'
-import { userUrl, turfOwnerUrl } from '../../API/API.js'
+// import { userUrl, turfOwnerUrl } from '../../API/API.js'
+import { Axiosuser,AxiosTurfOwner } from '../../API/AxiosInstance'
 import { toast, Toaster } from 'react-hot-toast'
 
 
@@ -35,7 +36,7 @@ function Login() {
 
     const userLogin = (e) => {
         e.preventDefault()
-        axios.post(`${userUrl}login`, userData).then((response) => {
+        Axiosuser.post(`login`, userData).then((response) => {
             console.log(response)
             if (response.data.logIn) {
                 localStorage.setItem('userToken', response.data?.token)
@@ -53,7 +54,7 @@ function Login() {
 
     const turfLogin = (e) => {
         e.preventDefault()
-        axios.post(`${turfOwnerUrl}logIn`, turfOwnerData).then((response) => {
+        AxiosTurfOwner.post(`logIn`, turfOwnerData).then((response) => {
             if (response.data.status === 'Success') {
                 localStorage.setItem('turfToken', response.data.token)
                 // setUser('turfOwner')
@@ -69,7 +70,7 @@ function Login() {
 
     const forgotPass = (e) => {
         e.preventDefault()
-        axios.post(`${userUrl}forgotPassword`, { email }).then((response) => {
+       Axiosuser.post(`forgotPassword`, { email }).then((response) => {
             response.data.otpSent ? setLoginForm('reset-password') : (response.data.userErr ? toast.error("Invaild Email") : toast.error("Sending OTP Failed"))
         }).catch(() => {
             toast.error("An Error Occured")
@@ -78,7 +79,7 @@ function Login() {
 
     const resetPassword = (e) => {
         e.preventDefault()
-        axios.post(`${userUrl}resetPassword`, { otp, email, password }).then((response) => {
+        Axiosuser.post(`resetPassword`, { otp, email, password }).then((response) => {
             response.data.reset ? setLoginForm("client") : toast.error("Invalid OTP")
         }).catch(() => {
             toast.error('An Error Occured')

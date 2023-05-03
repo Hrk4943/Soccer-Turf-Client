@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
-import { userUrl } from '../../../API/API'
-import axios from "axios";
+// import { userUrl } from '../../../API/API'
+// import axios from "axios";
+// import Moment from 'react-moment';
+import moment from 'moment';
+import { Axiosuser } from "../../../API/AxiosInstance";
 import toast from 'react-hot-toast'
 
 const Bookings = () => {
@@ -23,19 +26,20 @@ const Bookings = () => {
   const fetchBookings=async(token)=>{
     try {
       const headers = { authorization: token };
-      const response =await axios.get(`${userUrl}bookingList`, {headers})
+      const response =await Axiosuser.get(`bookingList`, {headers})
       if (response.status === 200) {
         setBookings(response?.data);
         const upcomingBooking = response?.data.filter((booking) => {
-          const bookedDate = new Date(booking?.bookDate);
-          return bookedDate > todayDate;
+          const bookedDate = new Date(booking.bookDate);
+          return bookedDate > today;
         });
+        console.log(upcomingBooking,"upcoming");
         setUpcomingBookings(upcomingBooking);
-  
         const previousBooking = response?.data.filter((booking) => {
           const bookedDate = new Date(booking?.bookDate);
           return bookedDate < today;
         });
+        console.log(previousBooking,"preves");
         setPreviousBookings(previousBooking);
         setShowBookings(true);
       }
@@ -54,7 +58,7 @@ const Bookings = () => {
 
   const cancelBooking = (bookingId) => {
     const headers = { authorization: token }
-    axios.post(`${userUrl}cancelBooking`, { bookingId }, { headers }).then((response) => {
+    Axiosuser.post(`cancelBooking`, { bookingId }, { headers }).then((response) => {
       toast.success(response.data.message)
       setRefresh(!refresh)
     }).catch((error) => {
@@ -123,7 +127,10 @@ const Bookings = () => {
                         <p class="text-gray-900 whitespace-no-wrap">{booking?.turf?.courtName}</p>
                       </td>
                       <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        <p class="text-gray-900 whitespace-no-wrap">{new Date(booking?.bookDate).toLocaleDateString()}</p>
+                        <p class="text-gray-900 whitespace-no-wrap">
+                        {moment(booking?.bookDate).format('DD-MM-YYYY')}
+                          {/* {new Date(booking?.bookDate).toLocaleDateString()} */}
+                          </p>
                       </td>
                       <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                         <p class="text-gray-900 whitespace-no-wrap">{booking?.time}</p>
@@ -172,7 +179,14 @@ const Bookings = () => {
                         <p class="text-gray-900 whitespace-no-wrap">{booking?.turf?.courtName}</p>
                       </td>
                       <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        <p class="text-gray-900 whitespace-no-wrap">{new Date(booking?.bookDate).toLocaleDateString()}</p>
+                        <p class="text-gray-900 whitespace-no-wrap">
+                        {/* <Moment format="YYYY/MM/DD">
+                booking?.bookDate
+            </Moment> */}
+            {moment(booking?.bookDate).format('DD-MM-YYYY')}
+                          {/* {new Date(booking?.bookDate).toLocaleDateString()}
+                          */}
+                           </p>
                       </td>
                       <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                         <p class="text-gray-900 whitespace-no-wrap">{booking?.time}</p>

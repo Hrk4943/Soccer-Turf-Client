@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { DataGrid } from '@mui/x-data-grid'
-import { adminUrl } from '../../../API/API'
-import axios from 'axios'
+// import { adminUrl } from '../../../API/API'
+// import axios from 'axios'
+import { Axiosadmin } from '../../../API/AxiosInstance'
 import { toast, Toaster } from 'react-hot-toast'
 import 'animate.css'
 
@@ -17,7 +18,7 @@ function UserList() {
   useEffect(() => {
     token = localStorage.getItem('adminToken')
     const headers = { authorization: token }
-    axios.get(`${adminUrl}getUsers`, { headers }).then((response) => {
+    Axiosadmin.get(`getUsers`, { headers }).then((response) => {
       setUsers(response.data)
     }).catch((err) => {
       err?.response?.status === 401 ? Navigate('/admin') : toast.error("An Error Occured")
@@ -27,7 +28,7 @@ function UserList() {
   const blockUser = (usersId) => {
     console.log(usersId)
     const headers = { authorization: token }
-    axios.get(`${adminUrl}blockUser/${usersId}`, { headers }).then((response) => {
+    Axiosadmin.patch(`blockUser/${usersId}`, { headers }).then((response) => {
       response.status === 200
       refresh ? setRefresh(false) : setRefresh(true)
     }).catch((err) => {
@@ -38,7 +39,7 @@ function UserList() {
 
   const unblockUser = (usersId) => {
     const headers = { authorization: token }
-    axios.get(`${adminUrl}unblockUser/${usersId}`, { headers }).then((response) => {
+    Axiosadmin.patch(`unblockUser/${usersId}`, { headers }).then((response) => {
       response.status === 200
       refresh ? setRefresh(false) : setRefresh(true)
     }).catch((err) => {

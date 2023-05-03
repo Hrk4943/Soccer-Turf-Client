@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import axios from 'axios'
-import { turfOwnerUrl } from '../../../API/API'
+// import axios from 'axios'
+// import { turfOwnerUrl } from '../../../API/API'
+import { AxiosTurfOwner } from "../../../API/AxiosInstance";
 import Carousel from "./Carousel";
 import { toast } from "react-hot-toast";
 
@@ -16,7 +17,7 @@ const TurfPorfile = () => {
         const fetchData = async () => {
             try {
                 const headers = { authorization: token }
-                const response = await axios.get(`${turfOwnerUrl}profile`, { headers });
+                const response = await AxiosTurfOwner.get(`profile`, { headers });
                 setData(response?.data?.turf);
             } catch (error) {
                 console.error(error);
@@ -28,7 +29,7 @@ const TurfPorfile = () => {
     const updateData = async () => {
         try {
             const headers = { authorization: token }
-            const response = await axios.post(`${turfOwnerUrl}updateProfile`,{data,image},)
+            const response = await AxiosTurfOwner.put(`updateProfile`,{data,image},)
             toast.success(response.data.message)
             setEditMode(false);
         } catch (error) {

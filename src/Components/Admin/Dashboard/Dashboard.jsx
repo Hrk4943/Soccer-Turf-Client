@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import LineGraph from "./Charts";
-import {adminUrl} from '../../../API/API'
-import axios from "axios";
+// import {adminUrl} from '../../../API/API'
+// import axios from "axios";
+import { Axiosadmin } from "../../../API/AxiosInstance";
 import Barchart from "./BarChart";
 import CountStatus from "./CountStatus";
 
@@ -13,8 +14,8 @@ const Dashboard = () => {
     const fetchData = async () => {
       try {
         const headers = { authorization: token }
-        const response = await axios.get(`${adminUrl}getCounts`, {headers});
-        const result = await axios.get(`${adminUrl}booking`, {headers});
+        const response = await Axiosadmin.get(`getCounts`, {headers});
+        const result = await Axiosadmin.get(`booking`, {headers});
         if (result.status === 200 && response.status === 200) {
           setData(result.data);
           setCounts(response.data);

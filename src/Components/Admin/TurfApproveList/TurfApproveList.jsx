@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { toast, Toaster } from 'react-hot-toast'
-import axios from 'axios'
-import { adminUrl } from '../../../API/API'
+// import axios from 'axios'
+// import { adminUrl } from '../../../API/API'
+import { Axiosadmin } from '../../../API/AxiosInstance'
 
 
 export default function TurfApproveList() {
@@ -13,7 +14,7 @@ export default function TurfApproveList() {
   useEffect(() => {
     token = localStorage.getItem('adminToken')
     const headers = { authorization: token }
-    axios.get(`${adminUrl}newRequestTurf`, { headers }).then((response) => {
+    Axiosadmin.get(`newRequestTurf`, { headers }).then((response) => {
       setTurfOwner(response.data)
     }).catch((err) => {
       err?.response?.status === 401 ? Navigate('/admin') : toast.error('An Error Occured')
@@ -23,7 +24,7 @@ export default function TurfApproveList() {
   const approveTurf = (turfOwnerId) => {
     // console.log(turfOwnerId)
     const headers = { authorization: token }
-    axios.post(`${adminUrl}approveTurfRequest/${turfOwnerId}`, { headers }).then((response) => {
+    Axiosadmin.patch(`approveTurfRequest/${turfOwnerId}`, { headers }).then((response) => {
       response.status === 200 && setRefresh(refresh => !refresh)
 
     }).catch((err) => {
@@ -33,7 +34,7 @@ export default function TurfApproveList() {
 
   const rejectTurf = (turfOwnerId) => {
     const headers = { authorization: token }
-    axios.post(`${adminUrl}rejectTurf`, { turfOwnerId }, { headers }).then((response) => {
+    Axiosadmin.patch(`rejectTurf`, { turfOwnerId }, { headers }).then((response) => {
       response.status === 200 && setRefresh(refresh => !refresh)
     }).catch((err) => {
       err?.response?.status === 401 ? Navigate('/admin') : toast.error('An Error Occured')

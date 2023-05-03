@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import LineGraph from "./Chart";
-import {turfOwnerUrl} from '../../../API/API'
-import axios from "axios";
+// import LineGraph from "./Chart";
+// import {turfOwnerUrl} from '../../../API/API'
+// import axios from "axios";
+import { AxiosTurfOwner } from "../../../API/AxiosInstance";
 import Barchart from "./BarChart";
 import CountStatus from "./Counts";
 
@@ -14,7 +15,7 @@ const Dashboard = () => {
     const fetchData = async () => {
       try {
         const headers = { authorization: token }
-        const response = await axios.get(`${turfOwnerUrl}getCounts`, {headers});
+        const response = await AxiosTurfOwner.get(`getCounts`, {headers});
         // const result = await axios.get(`${turfOwnerUrl}bookings`, {headers});
         if (response.status === 200) {
           setCounts(response.data); 

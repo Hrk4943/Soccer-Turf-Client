@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { adminUrl } from '../../../API/API'
+// import { adminUrl } from '../../../API/API'
 import Video from '../../../assets/Video.mp4'
+import { Axiosadmin } from '../../../API/AxiosInstance'
 import { Toaster, toast } from 'react-hot-toast'
-import axios from 'axios'
+// import axios from 'axios'
 
 export default function Login() {
     const [email,setEmail]=useState('')
@@ -12,7 +13,7 @@ export default function Login() {
 
     const adminLogin=(e)=>{
         e.preventDefault()
-        axios.post(`${adminUrl}login`,{email,password}).then((response)=>{
+        Axiosadmin.post(`login`,{email,password}).then((response)=>{
             response.data.token && localStorage.setItem('adminToken',response.data.token)
             Navigate('/admin/home')
         }).catch((error)=>{
@@ -23,7 +24,7 @@ export default function Login() {
     useEffect(()=>{
         const token=localStorage.getItem('adminToken')
         const headers={authorization:token}
-        axios.get(`${adminUrl}authenticate`,{headers}).then((response)=>{
+        Axiosadmin.get(`authenticate`,{headers}).then((response)=>{
             response.status === 200 ? Navigate('/admin/home'):Navigate('/admin')
         }).catch((err)=>{
             console.log(err)

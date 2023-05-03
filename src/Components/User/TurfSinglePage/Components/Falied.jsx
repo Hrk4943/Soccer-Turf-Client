@@ -1,7 +1,8 @@
 import { useEffect } from "react"
 import { useParams } from "react-router-dom"
-import axios from "axios"
-import { userUrl } from "../../../../API/API"
+// import axios from "axios"
+// import { userUrl } from "../../../../API/API"
+import { Axiosuser } from "../../../../API/AxiosInstance"
 import { toast, Toaster } from 'react-hot-toast'
 
 const Failed = () => {
@@ -12,7 +13,7 @@ const Failed = () => {
 
     const updateFailed = async () => {
         try {
-            const response = await axios.get(`${userUrl}booking-failed/${id}`);
+            const response = await Axiosuser.get(`booking-failed/${id}`);
             if (!response && !response.status === 200) {
                  toast(response.data.error)
             } 

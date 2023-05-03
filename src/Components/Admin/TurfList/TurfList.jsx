@@ -1,8 +1,9 @@
 import React,{useEffect,useState} from 'react'
 import { useNavigate } from 'react-router-dom'
-import axios from 'axios'
-import { adminUrl } from '../../../API/API'
+// import axios from 'axios'
+// import { adminUrl } from '../../../API/API'
 import {toast,Toaster} from 'react-hot-toast'
+import { Axiosadmin } from '../../../API/AxiosInstance'
 import './TurfList.css'
 
 export default function TurfList() {
@@ -16,7 +17,7 @@ export default function TurfList() {
     useEffect(()=>{
         token =localStorage.getItem('adminToken')
         const headers = {authorization:token}
-        axios.get(`${adminUrl}getTurfOwner`,{headers}).then((response)=>{
+        Axiosadmin.get(`getTurfOwner`,{headers}).then((response)=>{
             setTurfOwner(response.data)
         }).catch((err)=>{
             err?.response?.status=== 401 ? Navigate('/admin') : toast.error('An error occured')
@@ -25,7 +26,7 @@ export default function TurfList() {
 
     const blockTurfOwner=(turfOwnerId)=>{
         const headers = {authorization:token}
-        axios.get(`${adminUrl}blockTurfOwner/${turfOwnerId}`,{headers}).then((response)=>{
+        Axiosadmin.patch(`blockTurfOwner/${turfOwnerId}`,{headers}).then((response)=>{
             response.status === 200
             refresh ? setRefresh(false) : setRefresh(true)
         }).catch((err)=>{
@@ -35,7 +36,7 @@ export default function TurfList() {
 
     const unblockTurfOwner=(turfOwnerId)=>{
         const headers = {authorization:token}
-        axios.get(`${adminUrl}unblockTurfOwner/${turfOwnerId}`,{headers}).then((response)=>{
+        Axiosadmin.patch(`unblockTurfOwner/${turfOwnerId}`,{headers}).then((response)=>{
             response.status === 200
             refresh ? setRefresh(false) : setRefresh(true)
         }).catch((err)=>{
@@ -100,7 +101,7 @@ export default function TurfList() {
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <img 
-                    src={owner.images}
+                    src={owner.images[0]}
                     onClick={()=>{setViewImage(true);setPreImage(owner.images)}}
                      /> 
                   </td>

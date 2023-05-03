@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import Video from '../../../assets/Video.mp4'
-import axios from 'axios'
+// import axios from 'axios'
 import { toast, Toaster } from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
-import { userUrl } from '../../../API/API'
+// import { userUrl } from '../../../API/API'
+import { Axiosuser } from '../../../API/AxiosInstance'
 
 function SignUp() {
   const [signUpForm, setSignUpForm] = useState("client")
@@ -48,44 +49,32 @@ function SignUp() {
   }, [seconds, signUpForm])
 
 
-
-
-
   const sendOtp = (e) => {
     e.preventDefault();
     
     if (password === confirmPassword) {
-      // setLoading(true)
-      axios.post(`${userUrl}getOtp`, userData).then((response) => {
+      Axiosuser.post(`getOtp`, userData).then((response) => {
         response.data.userExist ? toast.error('User Already Exist') : setSignUpForm('otp')
-        //  if(response.data.userExist){
-        //     toast.error('User Already Exist')
-        //  }
       }).catch((err) => {
         toast.error('Some Unexpected error')
       })
-      // .finally(() => setLoading(false))
     } else {
       toast.error("Password doesnt Match")
     }
   }
   const signUpAndOtpVerify = (e) => {
     e.preventDefault()
-
-    // setLoading(true)
-    axios.post(`${userUrl}signUp`, { userData, otp }).then((response) => {
-      console.log(response.data.status)
+    Axiosuser.post(`signUp`, { userData, otp }).then((response) => {
       response.data.status ? Navigate('/login') : toast.error('Incorrect otp')
     }).catch(() => {
       toast.error('some unexpected errors please try after some time')
     })
-    // .finally(() => setLoading(false))
   }
 
   const resendOtp=()=>{
     setMinutes(0)
     setSeconds(30)
-    axios.post(`${userUrl}resendOtp`,{email}).then((response)=>{
+    Axiosuser.post(`resendOtp`,{email}).then((response)=>{
       response.data.status && toast.success("OTP has sent to your Email")
     })
   }
@@ -93,20 +82,17 @@ function SignUp() {
 
   return (
     <>
-      <div className="relative min-h-screen -z-5">
+      <div className="relative ">
         <Toaster />
 
         <video
-          className="absolute top-0 left-0 w-full h-full inset-0 z-0 object-cover"
+          className="absolute top-0 left-0 inset-0 z-0 object-cover"
           src={Video}
           type="video/mp4"
           muted
           autoPlay
           loop
         ></video>
-        {/* {loading && <div className="fixed top-0 left-0 w-screen h-screen flex justify-center items-center bg-gray-500 bg-opacity-50 z-50">
-          <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-gray-900"></div>
-        </div>} */}
         {signUpForm === 'client' &&
           <form onSubmit={sendOtp}>
             <div className='absolute w-full h-full'>

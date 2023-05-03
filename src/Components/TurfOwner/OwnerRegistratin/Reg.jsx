@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import axios from 'axios'
-import { turfOwnerUrl } from '../../../API/API'
+// import axios from 'axios'
+// import { turfOwnerUrl } from '../../../API/API'
 import { toast, Toaster } from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
 import Content from './Content'
+import { AxiosTurfOwner } from '../../../API/AxiosInstance'
 import Banner from './Banner'
 import Video from '../../../assets/Video.mp4'
 
@@ -72,7 +73,7 @@ export default function Reg() {
   const turfOwnerOtp = (e) => {
     e.preventDefault()
     if (password === confirmPassword) {
-      axios.post(`${turfOwnerUrl}turfOtp`, { email: turfData.email }).then((response) => {
+      AxiosTurfOwner.post(`turfOtp`, { email: turfData.email }).then((response) => {
         !response.data.userExist ? setRegisterForm('otp') : toast.error("Email Already Exist")
       }).catch(() => {
         toast.error('An Error Occured')
@@ -84,9 +85,7 @@ export default function Reg() {
 
 
   const handleimage = async (e) => {
-    console.log("aaaaaaaaaa")
     const files = e.target.files
-    console.log(files, "//////")
     const imagesArray = [];
     for (let i = 0; i < files.length; i++) {
       const reader = new FileReader();
@@ -101,20 +100,18 @@ export default function Reg() {
   }
   const turfRegisterAndOtpVerify = async (e) => {
     e.preventDefault();
-    console.log(image, "base54")
-    await axios.post(`${turfOwnerUrl}turf-signUp`, { turfData, otp, image }).then((response)=>{
+    await AxiosTurfOwner.post(`turf-signUp`, { turfData, otp, image }).then((response)=>{
       response.data.signUp ? Navigate('/login') : null
    }).catch(()=>{
        toast.error('An Error Occured')
    })
-    console.log("here")
     Navigate('/login')
   }
 
   const resendOtp = () => {
     setMinutes(0)
     setSeconds(30)
-    axios.post(`${turfOwnerUrl}resendOtp`, { email: turfData.email }).then((response) => {
+    AxiosTurfOwner.post(`resendOtp`, { email: turfData.email }).then((response) => {
       response.data.otpSent && toast.success("OTP has sent to your Email")
     }).catch(() => {
       toast.error('An Error Occured')
@@ -126,7 +123,7 @@ export default function Reg() {
       {registerForm === 'owner' && <form onSubmit={turfOwnerOtp}>
         <Banner />
         <Content />
-        <div class="flex justify-center items-center w-full h-screen bg-white mt-32">
+        <div class="flex justify-center items-center w-full h-screen bg-white mt-32 ">
           {/* COMPONENT CODE  */}
           <div class="container mx-auto my-4 px-4 lg:px-20">
             <div class="w-full p-8 my-4 md:px-12 lg:w-9/12 lg:pl-20 lg:pr-40 mr-auto bg-green-100 rounded-2xl shadow-2xl">
@@ -312,7 +309,7 @@ export default function Reg() {
                       Verify OTP
                     </button>
                   </div>
-                  {/* {seconds > 0 || minutes > 0 ? (
+                  {seconds > 0 || minutes > 0 ? (
                       <p className="text-danger">
                         Time Remaining: {minutes < 10 ? `0${minutes}` : minutes}
                         :{seconds < 10 ? `0${seconds}` : seconds}
@@ -325,7 +322,7 @@ export default function Reg() {
                       >
                         Resend Otp
                       </p>
-                    )} */}
+                    )}
                 </div>
               </div>
               {/* <label className="block mb-2 text-sm text-gray-400">Otp</label> */}
