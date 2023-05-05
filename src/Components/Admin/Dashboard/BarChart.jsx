@@ -8,15 +8,15 @@ import {
     Tooltip, 
     Bar 
 } from "recharts";
-const count1 = [
-  {name:"dasfas",totalBookings:4},{name:"hrithik",totalBookings:7}
-]
+// const count1 = [
+//   {name:"dasfas",totalBookings:4},{name:"hrithik",totalBookings:7}
+// ]
 const Barchart = ({ data }) => {
   const chartData = data.map((item) => ({
     name: item.name,
     totalBookings: item.totalBookings,
   }));
-  console.log(chartData,'//////')
+  
 
   return (
     <div className="sm:p-10 w-full ">
@@ -26,7 +26,7 @@ const Barchart = ({ data }) => {
          <ResponsiveContainer width="100%" height={370}>
     <BarChart 
     // width={600} height={300} 
-    data={count1}
+    data={chartData}
     margin={{ top: 20, right: 20, left: 20, bottom: 20 }}
     >
       <CartesianGrid strokeDasharray="3 3" />
