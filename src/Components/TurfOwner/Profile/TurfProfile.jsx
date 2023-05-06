@@ -24,11 +24,13 @@ const TurfPorfile = () => {
             }
         };
         fetchData();
-    }, []);
+    }, [image]);
 
     const updateData = async () => {
         try {
             const headers = { authorization: token }
+
+            console.log(image);
             const response = await AxiosTurfOwner.put(`updateProfile`,{data,image},)
             toast.success(response.data.message)
             setEditMode(false);
@@ -61,6 +63,12 @@ const TurfPorfile = () => {
                     type="file"
                   placeholder="Image*"
                   onChange={handleimage}
+                //   onChange={(e) =>
+                //     setData((prevData) => ({
+                //         ...prevData,
+                //         image: e.target.value,
+                //     }))
+                // }
                   multiple
                 />
                 ):null}
