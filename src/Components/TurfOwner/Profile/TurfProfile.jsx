@@ -12,19 +12,20 @@ const TurfPorfile = () => {
     const [data, setData] = useState({});
     const [editMode, setEditMode] = useState(false);
     const [image,setImage]=useState([])
-
+  const [refresh,setRefresh] = useState(false)
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const headers = { authorization: token }
                 const response = await AxiosTurfOwner.get(`profile`, { headers });
                 setData(response?.data?.turf);
+                console.log(response.data,"data");
             } catch (error) {
                 console.error(error);
             }
         };
         fetchData();
-    }, [image]);
+    }, [refresh]);
 
     const updateData = async () => {
         try {
@@ -32,6 +33,7 @@ const TurfPorfile = () => {
 
             console.log(image);
             const response = await AxiosTurfOwner.put(`updateProfile`,{data,image},)
+             setRefresh(!refresh)
             toast.success(response.data.message)
             setEditMode(false);
         } catch (error) {
