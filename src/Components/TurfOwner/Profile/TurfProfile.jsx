@@ -11,15 +11,15 @@ const TurfPorfile = () => {
     const token = localStorage.getItem('turfToken')
     const [data, setData] = useState({});
     const [editMode, setEditMode] = useState(false);
-    const [image,setImage]=useState([])
-  const [refresh,setRefresh] = useState(false)
+    const [image, setImage] = useState([])
+    const [refresh, setRefresh] = useState(false)
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const headers = { authorization: token }
                 const response = await AxiosTurfOwner.get(`profile`, { headers });
                 setData(response?.data?.turf);
-                console.log(response.data,"data");
+                console.log(response.data, "data");
             } catch (error) {
                 console.error(error);
             }
@@ -30,10 +30,8 @@ const TurfPorfile = () => {
     const updateData = async () => {
         try {
             const headers = { authorization: token }
-
-            console.log(image);
-            const response = await AxiosTurfOwner.put(`updateProfile`,{data,image},)
-             setRefresh(!refresh)
+            const response = await AxiosTurfOwner.put(`updateProfile`, { data, image },)
+            setRefresh(!refresh)
             toast.success(response.data.message)
             setEditMode(false);
         } catch (error) {
@@ -44,36 +42,36 @@ const TurfPorfile = () => {
         const files = e.target.files
         const imagesArray = [];
         for (let i = 0; i < files.length; i++) {
-          const reader = new FileReader();
-          reader.readAsDataURL(files[i]);
-          reader.onload = () => {
-            const base64s = reader.result;
-            imagesArray.push(base64s);
-            setImage(imagesArray)
-          }
-    
-        }
-      }
+            const reader = new FileReader();
+            reader.readAsDataURL(files[i]);
+            reader.onload = () => {
+                const base64s = reader.result;
+                imagesArray.push(base64s);
+                setImage(imagesArray)
+            }
 
-    
+        }
+    }
+
+
     return (
         <section className="body-font text-gray-600">
             <div className="container mx-auto flex flex-col items-center justify-center px-5 py-24">
                 <Carousel images={data?.images} />
-                {editMode?(
+                {editMode ? (
                     <input
-                    type="file"
-                  placeholder="Image*"
-                  onChange={handleimage}
-                //   onChange={(e) =>
-                //     setData((prevData) => ({
-                //         ...prevData,
-                //         image: e.target.value,
-                //     }))
-                // }
-                  multiple
-                />
-                ):null}
+                        type="file"
+                        placeholder="Image*"
+                        onChange={handleimage}
+                        //   onChange={(e) =>
+                        //     setData((prevData) => ({
+                        //         ...prevData,
+                        //         image: e.target.value,
+                        //     }))
+                        // }
+                        multiple
+                    />
+                ) : null}
                 <h1 className="sm:text-3xl text-2xl font-medium title-font text-gray-900 mb-4 py-5">
                     {data?.courtName}
                 </h1>
