@@ -26,16 +26,19 @@ const TurfPorfile = () => {
         fetchData();
     }, []);
 
-    const updateData = async () => {
-        try {
-            const headers = { authorization: token }
-            const response = await AxiosTurfOwner.put(`updateProfile`,{data,image},)
-            toast.success(response.data.message)
-            setEditMode(false);
-        } catch (error) {
-            console.error(error);
-        }
-    };
+    useEffect(()=>{
+        const updateData = async () => {
+            try {
+                const headers = { authorization: token }
+                const response = await AxiosTurfOwner.put(`updateProfile`,{data,image},)
+                toast.success(response.data.message)
+                setEditMode(false);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+        updateData()
+    },[])
     const handleimage = async (e) => {
         const files = e.target.files
         const imagesArray = [];
