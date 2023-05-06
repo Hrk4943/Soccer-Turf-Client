@@ -1,8 +1,9 @@
 import React from 'react'
 import { useState,useEffect } from 'react'
 import { useNavigate,Outlet } from 'react-router-dom'
-import { turfOwnerUrl } from '../API/API.js'
-import axios from 'axios'
+import {AxiosTurfOwner} from '../API/AxiosInstance'
+// import { turfOwnerUrl } from '../API/API.js'
+// import axios from 'axios'
 
 export default function TurfOwnerProtectedRoutes() {
     const Navigate=useNavigate()
@@ -10,7 +11,7 @@ export default function TurfOwnerProtectedRoutes() {
     useEffect(()=>{
         const token =localStorage.getItem('turfToken')
         const headers={Authorization :token}
-        axios.get(`${turfOwnerUrl}authenticate`,{headers}).then((response)=>{
+        AxiosTurfOwner.get(`authenticate`,{headers}).then((response)=>{
             setTurfOwnerCheck(response.data.authorization)
             // if(response.status!=200){
             //     setTurfOwnerCheck(false)
