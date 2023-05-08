@@ -75,7 +75,7 @@ const Bookings = () => {
   const token = localStorage.getItem("userToken");
 
   const [searchStartDate, setSearchStartDate] = useState("");
-  const [searchEndDate, setSearchEndDate] = useState("");
+  // const [searchEndDate, setSearchEndDate] = useState("");
 
   const today = new Date();
   const month = String(today.getMonth() + 1).padStart(2, "0");
@@ -127,9 +127,9 @@ const Bookings = () => {
     setSearchStartDate(e.target.value);
   };
 
-  const handleSearchEndDateChange = (e) => {
-    setSearchEndDate(e.target.value);
-  };
+  // const handleSearchEndDateChange = (e) => {
+  //   setSearchEndDate(e.target.value);
+  // };
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
@@ -146,7 +146,7 @@ const Bookings = () => {
 
   const handleClearSearch = () => {
     setSearchStartDate("");
-    setSearchEndDate("");
+    // setSearchEndDate("");
     setShowBookings(true);
   };
 
@@ -175,7 +175,7 @@ const Bookings = () => {
             className="block w-full bg-gray-100 border-transparent rounded-md focus:border-gray-500 focus:bg-white focus:ring-0"
           />
         </div>
-        <div className="mr-4">
+        {/* <div className="mr-4">
           <label htmlFor="end-date" className="font-bold">
             End Date:
           </label>
@@ -187,7 +187,7 @@ const Bookings = () => {
             onChange={handleSearchEndDateChange}
             className="block w-full bg-gray-100 border-transparent rounded-md focus:border-gray-500 focus:bg-white focus:ring-0"
           />
-        </div>
+        </div> */}
         <div className="flex-1">
           <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
             Search
