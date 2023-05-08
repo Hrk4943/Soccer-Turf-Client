@@ -147,6 +147,16 @@ const Bookings = () => {
           <div>
             <h2 class="text-2xl font-semibold leading-tight text-center">Bookings</h2>
           </div>
+          <form onSubmit={searchBookings}>
+                <label htmlFor="searchDate">Search by booked date:</label>
+                <input
+                  type="date"
+                  id="searchDate"
+                  value={searchDate}
+                  onChange={(e) => setSearchDate(e.target.value)}
+                />
+                <button type="submit">Search</button>
+              </form>
           <table className="table w-full border-2 border-slate-950">
             <thead>
               <tr>
@@ -187,16 +197,7 @@ const Bookings = () => {
 
             </thead>
             <tbody>
-              <form onSubmit={searchBookings}>
-                <label htmlFor="searchDate">Search by booked date:</label>
-                <input
-                  type="date"
-                  id="searchDate"
-                  value={searchDate}
-                  onChange={(e) => setSearchDate(e.target.value)}
-                />
-                <button type="submit">Search</button>
-              </form>
+              
               {showBookings ? (
                 <>
                   {upcomingBooking.map((booking, index) => (
