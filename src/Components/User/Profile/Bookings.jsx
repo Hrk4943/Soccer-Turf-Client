@@ -89,13 +89,11 @@ const Bookings = () => {
           const bookedDate = new Date(booking.bookDate);
           return bookedDate > today;
         });
-        console.log(upcomingBooking, "upcoming");
         setUpcomingBookings(upcomingBooking);
         const previousBooking = response?.data.filter((booking) => {
           const bookedDate = new Date(booking?.bookDate);
           return bookedDate < today;
         });
-        console.log(previousBooking, "preves");
         setPreviousBookings(previousBooking);
         setShowBookings(true);
       }
@@ -140,6 +138,7 @@ const Bookings = () => {
   const handleClearSearch = () => {
     setSearchDate("");
     setShowBookings(true);
+    setRefresh(refresh)
   };
 
 
@@ -159,12 +158,12 @@ const Bookings = () => {
               value={searchDate}
               onChange={(e) => setSearchDate(e.target.value)}
             />
-            <button type="submit" className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">
+            <button type="submit" className="bg-lime-100	 hover:bg-lime-400 text-white font-bold py-2 px-4 rounded">
               Search
             </button>
-            <button type="button" onClick={handleClearSearch} className="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded">
+            {/* <button type="button" onClick={handleClearSearch} className="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded">
               Clear
-            </button>
+            </button> */}
             {/* <button type="submit"> Search</button>
                 <button type="button" onClick={handleClearSearch}>  Clear</button> */}
           </form>
