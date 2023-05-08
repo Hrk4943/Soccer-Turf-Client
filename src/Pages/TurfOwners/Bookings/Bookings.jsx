@@ -119,6 +119,11 @@ export default function Bookings() {
         setPreviousBookings([]);
     };
 
+    const handleClearSearch = () => {
+    setSearchDate("");
+    setShowBookings(true);
+  };
+
 
     return (
         <>
@@ -138,6 +143,7 @@ export default function Bookings() {
                             onChange={(e) => setSearchDate(e.target.value)}
                         />
                         <button type="submit"> Search</button>
+                        <button type="button" onClick={handleClearSearch}>  Clear</button>
                     </form>
                     <table className=" table w-full border-2 border-slate-950">
                         <thead>
