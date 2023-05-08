@@ -66,6 +66,90 @@ import toast from 'react-hot-toast'
 //     })
 //   }
 
+// const Bookings = () => {
+//   const [showBookings, setShowBookings] = useState(true);
+//   const [bookings, setBookings] = useState([]);
+//   const [upcomingBooking, setUpcomingBookings] = useState([]);
+//   const [previousBooking, setPreviousBookings] = useState([]);
+//   const [refresh, setRefresh] = useState(false);
+//   const token = localStorage.getItem("userToken");
+
+//   const [searchStartDate, setSearchStartDate] = useState("");
+//   const [searchEndDate, setSearchEndDate] = useState("");
+
+//   const today = new Date();
+//   const month = String(today.getMonth() + 1).padStart(2, "0");
+//   const day = String(today.getDate()).padStart(2, "0");
+//   const year = today.getFullYear();
+//   const formattedDate = day + "/" + month + "/" + year;
+//   const todayDate = new Date(formattedDate);
+
+//   const fetchBookings = async (token) => {
+//     try {
+//       const headers = { authorization: token };
+//       const response = await Axiosuser.get(`bookingList`, { headers });
+//       if (response.status === 200) {
+//         setBookings(response?.data);
+//         const upcomingBooking = response?.data.filter((booking) => {
+//           const bookedDate = new Date(booking.bookDate);
+//           return bookedDate > today;
+//         });
+//         setUpcomingBookings(upcomingBooking);
+//         const previousBooking = response?.data.filter((booking) => {
+//           const bookedDate = new Date(booking?.bookDate);
+//           return bookedDate < today;
+//         });
+//         setPreviousBookings(previousBooking);
+//         setShowBookings(true);
+//       }
+//     } catch (error) {
+//       console.error(error);
+//     }
+//   };
+
+//   useEffect(() => {
+//     fetchBookings(token);
+//   }, [token, refresh]);
+
+//   const cancelBooking = (bookingId) => {
+//     const headers = { authorization: token };
+//     Axiosuser.post(`cancelBooking`, { bookingId }, { headers })
+//       .then((response) => {
+//         toast.success(response.data.message);
+//         setRefresh(!refresh);
+//       })
+//       .catch((error) => {
+//         toast.error(error.response.data.message);
+//       });
+//   };
+
+//   const handleSearchStartDateChange = (e) => {
+//     setSearchStartDate(e.target.value);
+//   };
+
+//   const handleSearchEndDateChange = (e) => {
+//     setSearchEndDate(e.target.value);
+//   };
+
+//   const handleSearchSubmit = (e) => {
+//     e.preventDefault();
+//     const startDate = new Date(searchStartDate);
+//     const endDate = new Date(searchEndDate);
+//     const filteredBookings = bookings.filter((booking) => {
+//       const bookedDate = new Date(booking.bookDate);
+//       return bookedDate >= startDate && bookedDate <= endDate;
+//     });
+//     setUpcomingBookings(filteredBookings.filter((booking) => booking.bookDate > today));
+//     setPreviousBookings(filteredBookings.filter((booking) => booking.bookDate < today));
+//     setShowBookings(false);
+//   };
+
+//   const handleClearSearch = () => {
+//     setSearchStartDate("");
+//     setSearchEndDate("");
+//     setShowBookings(true);
+//   };
+
 const Bookings = () => {
   const [showBookings, setShowBookings] = useState(true);
   const [bookings, setBookings] = useState([]);
@@ -74,8 +158,7 @@ const Bookings = () => {
   const [refresh, setRefresh] = useState(false);
   const token = localStorage.getItem("userToken");
 
-  const [searchStartDate, setSearchStartDate] = useState("");
-  // const [searchEndDate, setSearchEndDate] = useState("");
+  const [searchDate, setSearchDate] = useState("");
 
   const today = new Date();
   const month = String(today.getMonth() + 1).padStart(2, "0");
@@ -123,21 +206,16 @@ const Bookings = () => {
       });
   };
 
-  const handleSearchStartDateChange = (e) => {
-    setSearchStartDate(e.target.value);
+  const handleSearchDateChange = (e) => {
+    setSearchDate(e.target.value);
   };
-
-  // const handleSearchEndDateChange = (e) => {
-  //   setSearchEndDate(e.target.value);
-  // };
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
-    const startDate = new Date(searchStartDate);
-    const endDate = new Date(searchEndDate);
+    const searchDateObj = new Date(searchDate);
     const filteredBookings = bookings.filter((booking) => {
       const bookedDate = new Date(booking.bookDate);
-      return bookedDate >= startDate && bookedDate <= endDate;
+      return bookedDate.toDateString() === searchDateObj.toDateString();
     });
     setUpcomingBookings(filteredBookings.filter((booking) => booking.bookDate > today));
     setPreviousBookings(filteredBookings.filter((booking) => booking.bookDate < today));
@@ -145,12 +223,9 @@ const Bookings = () => {
   };
 
   const handleClearSearch = () => {
-    setSearchStartDate("");
-    // setSearchEndDate("");
+    setSearchDate("");
     setShowBookings(true);
   };
-
-
 
   return (
     <>
@@ -161,6 +236,14 @@ const Bookings = () => {
             <h2 class="text-2xl font-semibold leading-tight text-center">Bookings</h2>
           </div>
           <form onSubmit={handleSearchSubmit}>
+        <label>
+          Search by date:
+          <input type="date" value={searchDate} onChange={handleSearchDateChange} />
+        </label>
+        <button type="submit">Search</button>
+        <button type="button" onClick={handleClearSearch}>Clear</button>
+      </form>
+          {/* <form onSubmit={handleSearchSubmit}>
       <div className="flex mb-4">
         <div className="mr-4">
           <label htmlFor="start-date" className="font-bold">
@@ -175,7 +258,7 @@ const Bookings = () => {
             className="block w-full bg-gray-100 border-transparent rounded-md focus:border-gray-500 focus:bg-white focus:ring-0"
           />
         </div>
-        {/* <div className="mr-4">
+        <div className="mr-4">
           <label htmlFor="end-date" className="font-bold">
             End Date:
           </label>
@@ -187,7 +270,7 @@ const Bookings = () => {
             onChange={handleSearchEndDateChange}
             className="block w-full bg-gray-100 border-transparent rounded-md focus:border-gray-500 focus:bg-white focus:ring-0"
           />
-        </div> */}
+        </div>
         <div className="flex-1">
           <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
             Search
@@ -203,7 +286,7 @@ const Bookings = () => {
           ) : null}
         </div>
       </div>
-    </form>
+    </form> */}
           <table className="table w-full border-2 border-slate-950">
             <thead>
               <tr>
