@@ -71,6 +71,9 @@ const Bookings = () => {
   const [previousBooking, setPreviousBookings] = useState([]);
   const [refresh, setRefresh] = useState(false);
   const [searchDate, setSearchDate] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(5);
+
 
   let today = new Date();
   let month = String(today.getMonth() + 1).padStart(2, "0");
@@ -136,11 +139,10 @@ const Bookings = () => {
   };
 
   const handleClearSearch = () => {
-    setSearchDate("");
+    setSearchDate(bookings);
     setShowBookings(true);
-    setRefresh(refresh)
+    // setRefresh(refresh)
   };
-
 
   return (
     <>
@@ -158,12 +160,12 @@ const Bookings = () => {
               value={searchDate}
               onChange={(e) => setSearchDate(e.target.value)}
             />
-            <button type="submit" className="bg-lime-100	 hover:bg-lime-400 text-white font-bold py-2 px-4 rounded">
+            <button type="submit" className="bg-green-300	 hover:bg-green-500 text-white font-bold py-2 px-4 rounded">
               Search
             </button>
-            {/* <button type="button" onClick={handleClearSearch} className="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded">
+            <button type="button" onClick={handleClearSearch} className="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded">
               Clear
-            </button> */}
+            </button>
             {/* <button type="submit"> Search</button>
                 <button type="button" onClick={handleClearSearch}>  Clear</button> */}
           </form>
@@ -221,7 +223,6 @@ const Bookings = () => {
                       <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                         <p class="text-gray-900 whitespace-no-wrap">
                           {moment(booking?.bookDate).format('DD-MM-YYYY')}
-                          {/* {new Date(booking?.bookDate).toLocaleDateString()} */}
                         </p>
                       </td>
                       <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
@@ -229,15 +230,6 @@ const Bookings = () => {
                       </td>
                       <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                         {" "}
-                        {/* {booking.payment === "Success" ? (
-                        <button className="btn-success p-2">
-                          {booking?.payment}
-                        </button>
-                      ) : (
-                        <button className="btn-warning p-2">
-                          {booking?.payment}
-                        </button>
-                      )} */}
                         <p className="btn-warning p-2">
                           {booking?.payment}
                         </p>
@@ -272,12 +264,7 @@ const Bookings = () => {
                       </td>
                       <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                         <p class="text-gray-900 whitespace-no-wrap">
-                          {/* <Moment format="YYYY/MM/DD">
-                booking?.bookDate
-            </Moment> */}
                           {moment(booking?.bookDate).format('DD-MM-YYYY')}
-                          {/* {new Date(booking?.bookDate).toLocaleDateString()}
-                          */}
                         </p>
                       </td>
                       <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
@@ -285,15 +272,6 @@ const Bookings = () => {
                       </td>
                       <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                         {" "}
-                        {/* {booking.payment === "Success" ? (
-                        <button className="btn-success p-2">
-                          {booking?.payment}
-                        </button>
-                      ) : (
-                        <button className="btn-warning p-2">
-                          {booking?.payment}
-                        </button>
-                      )} */}
                         <p className="btn-warning p-2">
                           {booking?.payment}
                         </p>
