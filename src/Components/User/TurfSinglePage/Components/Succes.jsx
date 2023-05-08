@@ -36,7 +36,7 @@ const SuccessPage = () => {
                 </svg>
                 <h1 className="text-3xl font-bold text-gray-800 mb-4 text-center">Your booking is confirmed!</h1>
                 <div className="bg-gray-200 p-4 mx-5 text-center shadow-2xl  text-lg justify-center rounded-lg mb-6">
-                    <p>Booking ID: <span className="font-bold">{details._id}</span></p>
+                    {/* <p>Booking ID: <span className="font-bold">{details._id}</span></p> */}
                     <p>Booked Date: <span className="font-bold">{new Date(details.bookDate).toLocaleDateString()}</span></p>
                     <p>Booked Time: <span className="font-bold">{details.time}</span></p>
                 </div>
