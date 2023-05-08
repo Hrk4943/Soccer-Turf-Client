@@ -13,7 +13,7 @@ export default function Bookings() {
     const [upcomingBookings, setUpcomingBookings] = useState([]);
     const [previousBookings, setPreviousBookings] = useState([]);
     const [showBookings, setShowBookings] = useState(true);
-      const [searchDate, setSearchDate] = useState("");
+    const [searchDate, setSearchDate] = useState("");
     let today = new Date();
     let month = String(today.getMonth() + 1).padStart(2, "0");
     let day = String(today.getDate()).padStart(2, "0");
@@ -120,9 +120,9 @@ export default function Bookings() {
     };
 
     const handleClearSearch = () => {
-    setSearchDate("");
-    setShowBookings(true);
-  };
+        setSearchDate("");
+        setShowBookings(true);
+    };
 
 
     return (
@@ -142,8 +142,14 @@ export default function Bookings() {
                             value={searchDate}
                             onChange={(e) => setSearchDate(e.target.value)}
                         />
-                        <button type="submit"> Search</button>
-                        <button type="button" onClick={handleClearSearch}>  Clear</button>
+                        <button type="submit" className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">
+                            Search
+                        </button>
+                        <button type="button" onClick={handleClearSearch} className="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded">
+                            Clear
+                        </button>
+                        {/* <button type="submit"> Search</button>
+                        <button type="button" onClick={handleClearSearch}>  Clear</button> */}
                     </form>
                     <table className=" table w-full border-2 border-slate-950">
                         <thead>
