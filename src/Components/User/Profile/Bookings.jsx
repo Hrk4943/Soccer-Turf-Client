@@ -1,66 +1,7 @@
 import { useEffect, useState } from "react";
-// import { userUrl } from '../../../API/API'
-// import axios from "axios";
-// import Moment from 'react-moment';
 import moment from 'moment';
 import { Axiosuser } from "../../../API/AxiosInstance";
 import toast from 'react-hot-toast'
-
-// const Bookings = () => {
-
-
-//   const [showBookings, setShowBookings] = useState(true);
-//   const token = localStorage.getItem('userToken')
-//   const [bookings, setBookings] = useState([]);
-//   const [upcomingBooking, setUpcomingBookings] = useState([]);
-//   const [previousBooking, setPreviousBookings] = useState([]);
-//   const [refresh,setRefresh]=useState(false)
-//   let today = new Date();
-//   let month = String(today.getMonth() + 1).padStart(2, "0");
-//   let day = String(today.getDate()).padStart(2, "0");
-//   let year = today.getFullYear();
-//   let formattedDate = day + "/" + month + "/" + year 
-//   const todayDate = new Date(formattedDate);
-
-
-//   const fetchBookings=async(token)=>{
-//     try {
-//       const headers = { authorization: token };
-//       const response =await Axiosuser.get(`bookingList`, {headers})
-//       if (response.status === 200) {
-//         setBookings(response?.data);
-//         const upcomingBooking = response?.data.filter((booking) => {
-//           const bookedDate = new Date(booking.bookDate);
-//           return bookedDate > today;
-//         });
-//         console.log(upcomingBooking,"upcoming");
-//         setUpcomingBookings(upcomingBooking);
-//         const previousBooking = response?.data.filter((booking) => {
-//           const bookedDate = new Date(booking?.bookDate);
-//           return bookedDate < today;
-//         });
-//         console.log(previousBooking,"preves");
-//         setPreviousBookings(previousBooking);
-//         setShowBookings(true);
-//       }
-//     } catch (error) {
-//       console.error(error);
-//     }
-//   }
-
-//   useEffect(()=>{
-//     fetchBookings(token)
-//   },[token,refresh])
-
-//   const cancelBooking = (bookingId) => {
-//     const headers = { authorization: token }
-//     Axiosuser.post(`cancelBooking`, { bookingId }, { headers }).then((response) => {
-//       toast.success(response.data.message)
-//       setRefresh(!refresh)
-//     }).catch((error) => {
-//       toast.error(error.response.data.message)
-//     })
-//   }
 
 
 const Bookings = () => {
@@ -71,8 +12,6 @@ const Bookings = () => {
   const [previousBooking, setPreviousBookings] = useState([]);
   const [refresh, setRefresh] = useState(false);
   const [searchDate, setSearchDate] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(5);
 
 
   let today = new Date();
@@ -138,11 +77,6 @@ const Bookings = () => {
     setPreviousBookings([]);
   };
 
-  const handleClearSearch = () => {
-    setSearchDate(bookings);
-    setShowBookings(true);
-    // setRefresh(refresh)
-  };
 
   return (
     <>
@@ -163,20 +97,10 @@ const Bookings = () => {
             <button type="submit" className="bg-green-300	 hover:bg-green-500 text-white font-bold py-2 px-4 rounded">
               Search
             </button>
-            <button type="button" onClick={handleClearSearch} className="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded">
-              Clear
-            </button>
-            {/* <button type="submit"> Search</button>
-                <button type="button" onClick={handleClearSearch}>  Clear</button> */}
           </form>
           <table className="table w-full border-2 border-slate-950">
             <thead>
               <tr>
-                <th
-                  class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
-                >
-                  BookingID
-                </th>
                 <th
                   class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
                 >
@@ -214,9 +138,9 @@ const Bookings = () => {
                 <>
                   {upcomingBooking.map((booking, index) => (
                     <tr key={index}>
-                      <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                      {/* <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                         <p class="text-gray-900 whitespace-no-wrap">{booking?._id}</p>
-                      </td>
+                      </td> */}
                       <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                         <p class="text-gray-900 whitespace-no-wrap">{booking?.turf?.courtName}</p>
                       </td>
@@ -256,9 +180,9 @@ const Bookings = () => {
                 <>
                   {previousBooking.map((booking, index) => (
                     <tr key={index}>
-                      <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                      {/* <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                         <p class="text-gray-900 whitespace-no-wrap">{booking?._id}</p>
-                      </td>
+                      </td> */}
                       <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                         <p class="text-gray-900 whitespace-no-wrap">{booking?.turf?.courtName}</p>
                       </td>

@@ -1,7 +1,5 @@
 import React from 'react'
 import { useEffect, useState } from 'react';
-// import axios from 'axios';
-// import { turfOwnerUrl } from '../../../API/API';
 import moment from 'moment';
 import { AxiosTurfOwner } from '../../../API/AxiosInstance';
 import Nav from '../../../Components/TurfOwner/Layout/Nav';
@@ -145,11 +143,6 @@ export default function Bookings() {
                         <button type="submit" className="bg-green-300 hover:bg-green-500 text-white font-bold py-2 px-4 rounded">
                             Search
                         </button>
-                        <button type="button" onClick={handleClearSearch} className="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded">
-                            Clear
-                        </button>
-                        {/* <button type="submit"> Search</button>
-                        <button type="button" onClick={handleClearSearch}>  Clear</button> */}
                     </form>
                     <table className=" table w-full border-2 border-slate-950">
                         <thead>
@@ -159,11 +152,11 @@ export default function Bookings() {
                                 >
                                     Users
                                 </th>
-                                <th
+                                {/* <th
                                     class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
                                 >
                                     BookingID
-                                </th>
+                                </th> */}
                                 <th
                                     class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
                                 >
@@ -194,9 +187,9 @@ export default function Bookings() {
                                             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                                 <p class="text-gray-900 whitespace-no-wrap">{booking?.user?.name}</p>
                                             </td>
-                                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                            {/* <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                                 <p class="text-gray-900 whitespace-no-wrap">{booking?._id}</p>
-                                            </td>
+                                            </td> */}
                                             {/* <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                             <p class="text-gray-900 whitespace-no-wrap">{booking?.turf?.courtName}</p>
                                         </td> */}
@@ -231,9 +224,9 @@ export default function Bookings() {
                                             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                                 <p class="text-gray-900 whitespace-no-wrap">{booking?.user?.name}</p>
                                             </td>
-                                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                            {/* <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                                 <p class="text-gray-900 whitespace-no-wrap">{booking?._id}</p>
-                                            </td>
+                                            </td> */}
                                             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                                 <p class="text-gray-900 whitespace-no-wrap">
 
