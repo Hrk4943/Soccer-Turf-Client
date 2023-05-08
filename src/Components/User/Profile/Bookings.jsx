@@ -215,6 +215,8 @@ const Bookings = () => {
     const searchDateObj = new Date(searchDate);
     const filteredBookings = bookings.filter((booking) => {
       const bookedDate = new Date(booking.bookDate);
+      console.log(searchDate,"////")
+      console.log(searchDateObj,"000000")
       return bookedDate.toDateString() === searchDateObj.toDateString();
     });
     setUpcomingBookings(filteredBookings.filter((booking) => booking.bookDate > today));
@@ -243,50 +245,6 @@ const Bookings = () => {
         <button type="submit">Search</button>
         <button type="button" onClick={handleClearSearch}>Clear</button>
       </form>
-          {/* <form onSubmit={handleSearchSubmit}>
-      <div className="flex mb-4">
-        <div className="mr-4">
-          <label htmlFor="start-date" className="font-bold">
-            Start Date:
-          </label>
-          <input
-            type="date"
-            id="start-date"
-            name="start-date"
-            value={searchStartDate}
-            onChange={handleSearchStartDateChange}
-            className="block w-full bg-gray-100 border-transparent rounded-md focus:border-gray-500 focus:bg-white focus:ring-0"
-          />
-        </div>
-        <div className="mr-4">
-          <label htmlFor="end-date" className="font-bold">
-            End Date:
-          </label>
-          <input
-            type="date"
-            id="end-date"
-            name="end-date"
-            value={searchEndDate}
-            onChange={handleSearchEndDateChange}
-            className="block w-full bg-gray-100 border-transparent rounded-md focus:border-gray-500 focus:bg-white focus:ring-0"
-          />
-        </div>
-        <div className="flex-1">
-          <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-            Search
-          </button>
-          {searchStartDate !== "" || searchEndDate !== "" ? (
-            <button
-              type="button"
-              onClick={handleClearSearch}
-              className="ml-2 bg-gray-400 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded"
-            >
-              Clear
-            </button>
-          ) : null}
-        </div>
-      </div>
-    </form> */}
           <table className="table w-full border-2 border-slate-950">
             <thead>
               <tr>
