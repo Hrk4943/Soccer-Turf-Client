@@ -140,7 +140,7 @@ export default function Bookings() {
                             value={searchDate}
                             onChange={(e) => setSearchDate(e.target.value)}
                         />
-                        <button type="submit" className="bg-green-300 hover:bg-green-500 text-white font-bold py-2 px-4 rounded">
+                        <button type="submit" className="bg-green-300 hover:bg-green-500 text-white font-bold py-2 px-4 rounded mb-6">
                             Search
                         </button>
                     </form>

@@ -129,12 +129,12 @@ function Login() {
                                         </div>
                                     </div>
                                     {loginForm === 'client' && <form onSubmit={userLogin}>
-                                        <div className="text-center mb-3">
+                                        {/* <div className="text-center mb-3">
                                             <h6 className="text-blueGray-500 text-sm font-bold">
                                                 Login with
                                             </h6>
-                                        </div>
-                                        <div className="btn-wrapper text-center">
+                                        </div> */}
+                                        {/* <div className="btn-wrapper text-center">
                                             <button
                                                 className="bg-white active:bg-blueGray-50 text-blueGray-700 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs ease-linear transition-all duration-150"
                                                 type="button"
@@ -142,11 +142,11 @@ function Login() {
                                             >
                                                 Google
                                             </button>
-                                        </div>
+                                        </div> */}
                                         <hr className="mt-6 border-b-1 border-blueGray-300" />
                                         <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
                                             <div className="text-blueGray-400 text-center mb-3 font-bold">
-                                                <small>Or Login with Users Credentials</small>
+                                                <small> Login with Users Credentials</small>
                                             </div>
 
                                             <div className="relative w-full mb-3">
@@ -183,7 +183,7 @@ function Login() {
                                                 />
 
                                             </div>
-                                            <div>
+                                            {/* <div>
                                                 <label className="inline-flex items-center cursor-pointer">
                                                     <input
                                                         id="customCheckLogin"
@@ -194,7 +194,7 @@ function Login() {
                                                         Remember me
                                                     </span>
                                                 </label>
-                                            </div>
+                                            </div> */}
                                             <div className="text-center mt-6">
                                                 <button
                                                     className="bg-black text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"

@@ -1,13 +1,13 @@
 import axios from "axios"
 
 export const Axiosuser = axios.create({
-    baseURL: 'https://soccer-turf5.onrender.com/',
+    baseURL: 'http://localhost:9000/',
 })
 
 export const Axiosadmin=axios.create({
-    baseURL:'https://soccer-turf5.onrender.com/admin/'
+    baseURL:'http://localhost:9000/admin/'
 })
 
 export const AxiosTurfOwner=axios.create({
-    baseURL:'https://soccer-turf5.onrender.com/turfOwner/'
+    baseURL:'http://localhost:9000/turfOwner/'
 })
