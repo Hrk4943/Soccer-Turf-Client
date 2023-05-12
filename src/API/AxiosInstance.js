@@ -1,13 +1,13 @@
 import axios from "axios"
 
 export const Axiosuser = axios.create({
-    baseURL: 'http://carzhub.shop/',
+    baseURL: 'https://commercefox.ml/',
 })
 
 export const Axiosadmin=axios.create({
-    baseURL:'http://carzhub.shop/admin/'
+    baseURL:'https://commercefox.ml/admin/'
 })
 
 export const AxiosTurfOwner=axios.create({
-    baseURL:'http://carzhub.shop/turfOwner/'
+    baseURL:'https://commercefox.ml/turfOwner/'
 })
