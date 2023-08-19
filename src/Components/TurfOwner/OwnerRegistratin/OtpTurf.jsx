@@ -67,7 +67,7 @@ export default function OtpTurf() {
             <div className="relative ">
                 <Toaster/>
                 <video
-                    className="absolute inset-0 z-0 object-cover"
+                    className="absolute top-0 left-0 w-full h-full inset-0 z-0 object-cover"
                     src={Video}
                     type="video/mp4"
                     muted

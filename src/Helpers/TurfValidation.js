@@ -1,49 +1,109 @@
-export const FormValidate = (formData) => {
-    const newErrors = {};
-    const keys = Object.keys(formData)
-    keys.map(key => {
-        if (!formData[key]) newErrors[key] = `${key} is required`;
-        else if (key === 'email') {
-            !/\S+@\S+\.\S+/.test(formData[key]) ? newErrors[key] = 'Email is invalid' : ''
-        }
-        else if (key === 'mobile') {
-            !/^\d{10}$/.test(formData.mobile) ? newErrors[key] = 'Mobile Number is invalid' : ''
-        }
-    })
-    return newErrors;
-}
+export const userValidateForm = (formData) => {
+  const errors = {};
+
+  if (!formData.name) {
+    errors.name = 'Name is required';
+  }
+
+  if (!formData.email) {
+    errors.email = 'Email is required';
+  } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+    errors.email = 'Email is invalid';
+  }
+
+  if (!formData.password) {
+    errors.password = 'Password is required';
+  } else if (formData.password.length < 6) {
+    errors.password = 'Password should be at least 6 characters long';
+  }
+
+  if (formData.password !== formData.confirmPassword) {
+    errors.confirmPassword = 'Passwords do not match';
+  }
+
+  if (!formData.phone) {
+    errors.phone = 'Phone number is required';
+  } else if (!/^\d{10}$/.test(formData.phone)) {
+    errors.phone = 'Phone number is invalid';
+  }
+  
+  return errors;
+};
 
 
-export const TurfValidation = (formData) => {
-    const newErrors = {};
+
+
+export const validateForm = (formData) => {
+    const errors = {};
+  
+    if (!formData.name) {
+      errors.name = 'Name is required';
+    }
+  
     if (!formData.courtName) {
-        newErrors.courtNameError = "Court Name is required";
+      errors.courtName = 'Court Name is required';
     }
+  
     if (!formData.email) {
-        newErrors.emailError = "Email is required";
+      errors.email = 'Email is required';
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-        newErrors.emailError = "Email is invalid";
+      errors.email = 'Email is invalid';
     }
-    if (!formData.mobile) {
-        newErrors.mobileError = "Mobile Number is required";
-    } else if (!/^\d{10}$/.test(formData.mobile)) {
-        newErrors.mobileError = "Mobile number is invalid";
-    }
-    if (!formData.location) {
-        newErrors.locationError = "Location is required";
-    }
+  
     if (!formData.password) {
-        newErrors.passwordError = "Password is required";
+      errors.password = 'Password is required';
+    } else if (formData.password.length < 6) {
+      errors.password = 'Password should be at least 6 characters long';
     }
-    if (!formData.event) {
-        newErrors.eventError = "Event is required";
-    }
-    if (!formData.loction_Details) {
-        newErrors.loction_DetailsError = "Loction details is required";
-    }
-    if (!formData.images.length) {
-        newErrors.imagesError = 'Image is required';
+  
+    if (formData.password !== formData.confirmPassword) {
+      errors.confirmPassword = 'Passwords do not match';
     }
 
-    return newErrors;
-}
+        if (!formData.number) {
+        errors.number = "Mobile Number is required";
+    } else if (!/^\d{10}$/.test(formData.number)) {
+        errors.number = "Mobile number is invalid";
+    }
+    if (!formData.sportsEvent) {
+        errors.sportsEvent = 'Sports Events is required';
+      }
+      if (!formData.location) {
+        errors.location = 'Location is required';
+      }
+    
+      if (!formData.district) {
+        errors.district = 'District is required';
+      }
+      if (!formData.state) {
+        errors.state = 'State is required';
+      }
+      if (!formData.openingTime) {
+        errors.openingTime = 'Opening Time is required';
+      } else if (!/^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/.test(formData.openingTime)) {
+        errors.openingTime = 'Opening Time format is invalid (HH:MM)';
+      }
+    
+      if (!formData.closingTime) {
+        errors.closingTime = 'Closing Time is required';
+      } else if (!/^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/.test(formData.closingTime)) {
+        errors.closingTime = 'Closing Time format is invalid (HH:MM)';
+      }
+    
+  
+    return errors;
+  };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
